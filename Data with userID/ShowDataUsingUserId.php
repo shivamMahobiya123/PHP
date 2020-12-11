@@ -83,52 +83,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $nameErr = "Enter User Id";
     } else {
         $userid=$_POST["userid"];
-        $sql = "SELECT userid, team, department ,blood,phone,email FROM user_data where userid='$userid' ";
+        $sql = "SELECT emp_id, emp_name,emp_email,emp_phone,emp_department,emp_designation,emp_team,emp_bloodgroup FROM empverfication_table where emp_id='$userid' ";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
           echo "<div><h1>User Details</h1></div>";
-          if($userid=='emp052020')
+          switch($userid)
           {
-          echo "<div><img src='employee/emp052020.jpg' alt='Avatar' class='avatar'>
-          </div>";
+              case emp01:
+                        echo "<div><img src='img/employees/userimg.png' alt='Avatar' class='avatar'></div>";
+                        break;              
+              default:
+                        echo "<div><img src='img/employees/userimg.jpg' alt='Avatar' class='avatar'></div>";
           }
+          
            echo " <div>
            <table>
 	<tbody>
-    <tr>
+	<tr>
         <tr>
-        <th>User ID</th>
-        <td>" . $row["userid"]. "</td>
+        <th>Employee Name:</th>
+        <td>" . $row["emp_name"]. "</td>
+        </tr>
+        
+        <tr>
+        <th>Desgination</th>
+        <td>" . $row["emp_designation"]. "</td>
+        <tr>
+    </tr>
+        <tr>
+        <th>Employee ID</th>
+        <td>" . $row["emp_id"]. "</td>
         </tr>
         <tr>
         <th>Team</th>
-        <td>" . $row["team"]. "</td>
+        <td>" . $row["emp_team"]. "</td>
         <tr>
     </tr>
     <tr>
-        <tr><th>Department</th>
-        <td>" . $row["department"]."</td>
-        </tr>
-        <tr><th>Blood Group</th>
-        <td>" . $row["blood"]."</td>
-        </tr>
-    </tr>
-    <tr>
         <tr><th>Phone</th>
-        <td>" . $row["phone"]."</td>
+        <td>" . $row["emp_phone"]."</td>
         </tr>
         <tr><th>Email</th>
-        <td>" . $row["email"]. "</td>
-
+        <td>" . $row["emp_email"]. "</td>
         </tr>
 	</tr>
+    <tr>
+        <tr><th>Department</th>
+        <td>" . $row["emp_department"]."</td>
+        </tr>
+        <tr><th>Blood Group</th>
+        <td>" . $row["emp_bloodgroup"]."</td>
+        </tr>
+    </tr>
 	</tbody>
 	
 </table>
-
 </div>";
 
         }
